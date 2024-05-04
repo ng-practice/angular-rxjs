@@ -6,10 +6,14 @@ const stream$ = new Observable((observer) => {
   observer.next(3);
   observer.next(4);
   observer.next(5);
+  observer.error('Oh mein Gott!');
+
   observer.complete();
 });
 
 stream$.subscribe({
   next: (value) => console.log(value),
+  error: (err) => console.warn(err),
+
   complete: () => console.log('Fertig! 😎'),
 });
