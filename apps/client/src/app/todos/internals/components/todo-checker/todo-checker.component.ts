@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 import { Todo } from '../../../models';
 
 @Component({
@@ -13,8 +13,8 @@ import { Todo } from '../../../models';
 })
 export class TodoCheckerComponent {
   @Input() todo: Todo;
-  @Output() toggle = new EventEmitter<Todo>();
-  @Output() remove = new EventEmitter<Todo>();
+  toggle = output<Todo>();
+  remove = output<Todo>();
 
   emitToggle() {
     this.toggle.emit(this.todo);

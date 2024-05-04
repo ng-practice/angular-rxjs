@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 
 @Component({
   selector: 'app-todo-updater',
@@ -18,5 +18,5 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class TodoUpdaterComponent {
   @Input() isShown: boolean | null = false;
-  @Output() reload = new EventEmitter<void>();
+  reload = output<void>();
 }

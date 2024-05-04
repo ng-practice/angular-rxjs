@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { Todo } from '../../../models';
 
 @Component({
@@ -18,7 +18,7 @@ import { Todo } from '../../../models';
   `,
 })
 export class TodoQuickAddComponent {
-  @Output() create = new EventEmitter<Todo>();
+  create = output<Todo>();
 
   emitCreate(textInput: HTMLInputElement) {
     this.create.emit({
