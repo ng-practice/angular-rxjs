@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Todo, TodoApi } from '../models';
 
 @Injectable()
 export class Toolbelt {
-  constructor(private snackbar: MatSnackBar) {}
+  private snackbar = inject(MatSnackBar);
 
   toTodoApi(todo: Todo): TodoApi {
     const mappedTodo = {

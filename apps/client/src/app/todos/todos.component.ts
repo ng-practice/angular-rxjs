@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable, Subject, of } from 'rxjs';
 import { Todo } from './models';
 import { TodoService } from './todo.service';
@@ -35,6 +35,7 @@ import { TodoService } from './todo.service';
   `,
 })
 export class TodosComponent implements OnInit {
+  private todosService = inject(TodoService);
   todos$: Observable<Todo[]>;
   todosSource$ = this.todosService.loadFrequently();
   todosInitial$: Observable<Todo[]> = of([]);
@@ -47,7 +48,7 @@ export class TodosComponent implements OnInit {
 
   isErrorShown = false;
 
-  constructor(private todosService: TodoService) {
+  constructor() {
     // TODO: Control update of todos in App (back pressure)
     this.todos$ = this.todosSource$;
   }

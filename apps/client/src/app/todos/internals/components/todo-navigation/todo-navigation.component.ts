@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TodoSettingsComponent } from './todo-settings.component';
 
@@ -20,7 +20,7 @@ import { TodoSettingsComponent } from './todo-settings.component';
   styles: ['.spacer { flex: 1 1 auto; }'],
 })
 export class TodoNavigationComponent {
-  constructor(private dialog: MatDialog) {}
+  private dialog = inject(MatDialog);
 
   openSettings() {
     this.dialog.open(TodoSettingsComponent);

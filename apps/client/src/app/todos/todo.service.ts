@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Toolbelt } from './internals';
@@ -10,11 +10,9 @@ const todosUrl = 'http://localhost:3333/api';
 
 @Injectable()
 export class TodoService {
-  constructor(
-    private http: HttpClient,
-    private toolbelt: Toolbelt,
-    private settings: TodoSettings
-  ) {}
+  private http = inject(HttpClient);
+  private toolbelt = inject(Toolbelt);
+  private settings = inject(TodoSettings);
 
   loadFrequently() {
     // TODO: Introduce error handled, configured, recurring, all-mighty stream

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   TodoSettings,
@@ -39,9 +39,10 @@ import {
   `,
 })
 export class TodoSettingsComponent {
+  private todoSettings = inject(TodoSettings);
   settings$: Observable<Partial<TodoSettingsOptions>>;
 
-  constructor(private todoSettings: TodoSettings) {
+  constructor() {
     this.settings$ = todoSettings.settings$;
   }
 
