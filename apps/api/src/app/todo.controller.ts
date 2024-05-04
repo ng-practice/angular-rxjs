@@ -56,7 +56,7 @@ export class TodoController {
   }
 
   private flipCoin() {
-    if (faker.datatype.boolean()) {
+    if (faker.helpers.arrayElement([true, false])) {
       throw new HttpException(
         {
           status: HttpStatus.SERVICE_UNAVAILABLE,
@@ -68,7 +68,7 @@ export class TodoController {
   }
 
   private takeABreak(): Promise<void> {
-    const between1To3Seconds = faker.datatype.number({ min: 1000, max: 3000 });
+    const between1To3Seconds = faker.number.int({ min: 1000, max: 3000 });
 
     return new Promise((resolve) =>
       setTimeout(() => resolve(), between1To3Seconds)

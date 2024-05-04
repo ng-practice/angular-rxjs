@@ -9,7 +9,7 @@ import { PinnedPipe } from './pinned.pipe';
   standalone: true,
   imports: [MatList, MatListItem, MatIcon, PinnedPipe],
   template: `
-    @if(todos(); as todos) { @if(todos.length > 0) { >
+    @if(todos(); as todos) { @if(todos.length > 0) {
     <h3 class="mat-h3">Pinned</h3>
     <mat-list>
       @for(todo of todos | pinned; track todo.id) {

@@ -34,12 +34,13 @@ import { TodoService } from './todo.service';
         [count]="todos.length"
         class="todo__component--spaced"
       ></app-todo-counter>
+
+      @for(todo of todos; track todo.id) {
       <app-todo-checker
         [todo]="todo"
         (toggle)="completeOrIncompleteTodo($event)"
-        *ngFor="let todo of todos"
       ></app-todo-checker>
-      } @else if(!isErrorShown) {
+      } } @else if(!isErrorShown) {
       <div style="padding: 8px">Get todos ready for you...</div>
       }
 
