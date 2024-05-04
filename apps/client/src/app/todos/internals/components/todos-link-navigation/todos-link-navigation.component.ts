@@ -1,12 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'dos-todos-link-navigation',
-  templateUrl: './todos-link-navigation.component.html',
-  styleUrls: ['./todos-link-navigation.component.scss']
+  selector: 'app-todos-link-navigation',
+  template: `
+    <ul class="todo__link-navigation">
+      <li class="todo__link-navigation__link">
+        <a routerLink="../all" routerLinkActive="todo__link--active">All</a>
+      </li>
+      <li class="todo__link-navigation__link">
+        <a routerLink="../active" routerLinkActive="todo__link--active"
+          >Active</a
+        >
+      </li>
+      <li class="todo__link-navigation__link">
+        <a routerLink="../complete" routerLinkActive="todo__link--active"
+          >Complete</a
+        >
+      </li>
+    </ul>
+  `,
 })
-export class TodosLinkNavigationComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
-}
+export class TodosLinkNavigationComponent {}

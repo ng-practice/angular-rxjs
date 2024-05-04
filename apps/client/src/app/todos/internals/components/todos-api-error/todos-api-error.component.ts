@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'dos-todos-api-error',
+  selector: 'app-todos-api-error',
   template: `
     <h3>Sorry</h3>
     <ul>
@@ -18,7 +18,7 @@ import { Component, OnInit } from '@angular/core';
         background-color: #ed4337;
         color: #ffffff;
       }
-    `
-  ]
+    `,
+  ],
 })
 export class TodosApiErrorComponent {}

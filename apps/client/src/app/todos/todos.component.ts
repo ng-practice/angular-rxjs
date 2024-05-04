@@ -1,29 +1,60 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { Todo } from './models';
 import { TodoService } from './todo.service';
 
 @Component({
-  selector: 'dos-todos',
-  templateUrl: './todos.component.html'
+  selector: 'app-todos',
+  template: `
+    <app-todo-navigation></app-todo-navigation>
+    <app-todo-updater
+      [isShown]="showReload$ | async"
+      (reload)="update$$.next()"
+    ></app-todo-updater>
+    <main class="todo__app">
+      <ng-container *ngIf="todos$ | async as todos; else loadingIndicator">
+        <app-todo-counter
+          [count]="todos.length"
+          class="todo__component--spaced"
+        ></app-todo-counter>
+        <app-todo-checker
+          [todo]="todo"
+          (toggle)="completeOrIncompleteTodo($event)"
+          *ngFor="let todo of todos"
+        ></app-todo-checker>
+      </ng-container>
+
+      <app-todos-pinned [todos]="todos$ | async"></app-todos-pinned>
+
+      <ng-template #loadingIndicator>
+        <div *ngIf="!isErrorShown" style="padding: 8px">
+          Get todos ready for you...
+        </div>
+      </ng-template>
+    </main>
+  `,
 })
 export class TodosComponent implements OnInit {
   todos$: Observable<Todo[]>;
   todosSource$ = this.todosService.loadFrequently();
-  todosInitial$: Observable<Todo[]>;
-  todosMostRecent$: Observable<Todo[]>;
+  todosInitial$: Observable<Todo[]> = of([]);
+  todosMostRecent$: Observable<Todo[]> = of([]);
 
-  update$$ = new Subject();
-  show$: Observable<boolean>;
-  hide$: Observable<boolean>;
+  update$$ = new Subject<void>();
+  show$: Observable<boolean> = of(false);
+  hide$: Observable<boolean> = of(false);
   showReload$: Observable<boolean> = of(true);
 
-  constructor(private todosService: TodoService) {}
+  isErrorShown = false;
 
-  ngOnInit(): void {
+  constructor(private todosService: TodoService) {
     // TODO: Control update of todos in App (back pressure)
     this.todos$ = this.todosSource$;
+  }
 
+  // TODO: Remove eslint-disable-next-line as soon as ngOnInit has been implemented.
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {
     // TODO: Control display of refresh button
   }
 

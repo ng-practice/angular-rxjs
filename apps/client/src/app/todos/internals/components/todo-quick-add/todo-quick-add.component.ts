@@ -2,9 +2,20 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Todo } from '../../../models';
 
 @Component({
-  selector: 'dos-todo-quick-add',
-  templateUrl: './todo-quick-add.component.html',
-  styleUrls: ['./todo-quick-add.component.scss']
+  selector: 'app-todo-quick-add',
+  template: `
+    <input
+      #todoTextInput
+      type="text"
+      class="todo__input"
+      placeholder="What needs to be done?"
+      (keydown.enter)="emitCreate(todoTextInput)"
+    />
+
+    <button (click)="emitCreate(todoTextInput)" class="todo__button--primary">
+      Add
+    </button>
+  `,
 })
 export class TodoQuickAddComponent {
   @Output() create = new EventEmitter<Todo>();
@@ -14,7 +25,7 @@ export class TodoQuickAddComponent {
       id: 1,
       text: textInput.value,
       isDone: false,
-      isPinned: false
+      isPinned: false,
     });
     textInput.value = '';
   }

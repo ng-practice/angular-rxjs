@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { TodoSettingsComponent } from './todo-settings.component';
 import { MatDialog } from '@angular/material/dialog';
+import { TodoSettingsComponent } from './todo-settings.component';
 
 @Component({
-  selector: 'dos-todo-navigation',
+  selector: 'app-todo-navigation',
   template: `
     <mat-toolbar color="primary">
       <mat-toolbar-row>
@@ -17,7 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
       </mat-toolbar-row>
     </mat-toolbar>
   `,
-  styles: ['.spacer { flex: 1 1 auto; }']
+  styles: ['.spacer { flex: 1 1 auto; }'],
 })
 export class TodoNavigationComponent {
   constructor(private dialog: MatDialog) {}

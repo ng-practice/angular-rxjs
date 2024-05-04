@@ -5,6 +5,8 @@ export const appRoutes: Route[] = [
   {
     path: 'todos',
     loadChildren: () =>
-      import('./todos/internals/todos.module').then((m) => m.TodosModule),
+      import('./todos/internals/todos.routes').then(
+        (module) => module.todosRoutes
+      ),
   },
 ];

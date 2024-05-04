@@ -1,9 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'dos-todo-counter',
-  templateUrl: './todo-counter.component.html',
-  styleUrls: ['./todo-counter.component.scss']
+  selector: 'app-todo-counter',
+  template: `
+    <span class="todo__text--emphasize">{{ count }}</span>
+    <span class="todo__text--default">Item(s) left</span>
+  `,
 })
 export class TodoCounterComponent {
   @Input() count: number;

@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Todo } from '../../../models';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import {
   TodoSettings,
-  TodoSettingsOptions
+  TodoSettingsOptions,
 } from '../../../todo-settings.service';
-import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'dos-todo-settings',
+  selector: 'app-todo-settings',
   template: `
     <h2 mat-dialog-title>Settings</h2>
     <mat-dialog-content *ngIf="settings$ | async as settings">
@@ -35,11 +34,9 @@ import { Observable } from 'rxjs';
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
-      <button mat-dialog-close="" class="todo__button--primary">
-        CLOSE
-      </button>
+      <button mat-dialog-close="" class="todo__button--primary">CLOSE</button>
     </mat-dialog-actions>
-  `
+  `,
 })
 export class TodoSettingsComponent {
   settings$: Observable<Partial<TodoSettingsOptions>>;
