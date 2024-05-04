@@ -22,11 +22,11 @@ npm install
 
 ## Start
 
-### Playground
+### RxJS Playground
 
 ```bash
 # Open in own terminal session
-npm run start:playground
+npm run start:rxjs
 
 ```
 
