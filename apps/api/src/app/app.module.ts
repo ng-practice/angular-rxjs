@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { TodoController } from './todo.controller';
+import { InMemoryDBModule } from '@nestjs-addons/in-memory-db';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [InMemoryDBModule.forRoot()],
+  controllers: [TodoController]
 })
 export class AppModule {}
