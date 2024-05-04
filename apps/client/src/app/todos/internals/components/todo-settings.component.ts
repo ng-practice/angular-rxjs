@@ -1,12 +1,16 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import {
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+} from '@angular/material/dialog';
 import { TodoSettings } from '../../todo-settings.service';
 
 @Component({
   selector: 'app-todo-settings',
   standalone: true,
-  imports: [MatDialogContent, MatDialogActions, AsyncPipe],
+  imports: [MatDialogContent, MatDialogActions, MatDialogClose, AsyncPipe],
   template: `
     <h2 mat-dialog-title>Settings</h2>
     @if(settings$ | async; as settings) {
@@ -36,8 +40,14 @@ import { TodoSettings } from '../../todo-settings.service';
     }
 
     <mat-dialog-actions align="end">
-      <button mat-dialog-close="" class="todo__button--primary">CLOSE</button>
+      <button mat-dialog-close class="todo__button--primary">CLOSE</button>
     </mat-dialog-actions>
+  `,
+  styles: `
+    :host {
+      display: block;
+      padding: 1.5rem;
+    }
   `,
 })
 export class TodoSettingsComponent {
