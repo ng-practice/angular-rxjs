@@ -8,7 +8,6 @@ import {
   retryWhen,
   share,
   switchMap,
-  tap,
 } from 'rxjs/operators';
 import { Toolbelt } from './internals';
 import { Todo, TodoApi } from './models';
@@ -23,13 +22,11 @@ export class TodoService {
   private settings = inject(TodoSettings);
 
   loadFrequently() {
-    // TODO: Introduce error handled, configured, recurring, all-mighty stream
     return this.settings.settings$.pipe(
-      switchMap((settings) =>
-        settings.isPollingEnabled
-          ? timer(0, settings.pollingInterval || 5000).pipe(
-              exhaustMap(() => this.query()),
-              tap({ error: () => this.toolbelt.offerHardReload() })
+      switchMap(({ isPollingEnabled, pollingInterval }) =>
+        isPollingEnabled
+          ? timer(0, pollingInterval || 5000).pipe(
+              exhaustMap(() => this.query())
             )
           : this.query()
       ),
