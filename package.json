@@ -1,8 +1,10 @@
 {
-  "name": "@reactive-thinkgin-in-rxjs-2/source",
+  "name": "work",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "nx run-many --target=serve --projects=client,api --parallel"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~17.3.0",
@@ -15,6 +17,8 @@
     "@angular/platform-browser": "~17.3.0",
     "@angular/platform-browser-dynamic": "~17.3.0",
     "@angular/router": "~17.3.0",
+    "@faker-js/faker": "^8.4.1",
+    "@nestjs-addons/in-memory-db": "^3.0.3",
     "@nestjs/common": "^10.0.2",
     "@nestjs/core": "^10.0.2",
     "@nestjs/platform-express": "^10.0.2",

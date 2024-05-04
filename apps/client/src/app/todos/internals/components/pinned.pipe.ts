@@ -3,6 +3,7 @@ import { Todo } from '../../models';
 
 @Pipe({
   name: 'pinned',
+  standalone: true,
 })
 export class PinnedPipe implements PipeTransform {
   transform(todos: Todo[]): Todo[] {

@@ -17,8 +17,8 @@ import { TodoSettings } from '../../todo-settings.service';
         class="todo__input"
         placeholder="What needs to be done?"
         [value]="settings.pollingInterval"
-        (change)="updateInterval($event)"
-        (keyup.enter)="updateInterval($event)"
+        (change)="updateInterval($any($event))"
+        (keyup.enter)="updateInterval($any($event))"
       />
 
       <div class="todo">
@@ -27,7 +27,7 @@ import { TodoSettings } from '../../todo-settings.service';
           <input
             type="checkbox"
             [checked]="settings.isPollingEnabled"
-            (change)="togglePolling($event)"
+            (change)="togglePolling($any($event))"
           />
           <span class="todo__checkmark"></span>
         </label>

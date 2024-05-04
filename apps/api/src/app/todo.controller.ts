@@ -1,14 +1,14 @@
+import { faker } from '@faker-js/faker';
+import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
 import {
   Body,
   Controller,
   Get,
   HttpException,
   HttpStatus,
-  Put
+  Put,
 } from '@nestjs/common';
-import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
 import { Todo } from './todo';
-import * as faker from 'faker';
 
 @Controller()
 export class TodoController {
@@ -36,31 +36,31 @@ export class TodoController {
 
   private initializeFakeData() {
     this.todosInMemory.create({
-      id: 1,
+      id: '1',
       text: 'Buy 🥛',
       isComplete: true,
-      isPinned: true
+      isPinned: true,
     });
     this.todosInMemory.create({
-      id: 2,
+      id: '2',
       text: 'Go 🏃‍♀️',
       isComplete: false,
-      isPinned: false
+      isPinned: false,
     });
     this.todosInMemory.create({
-      id: 3,
+      id: '3',
       text: 'Build 🏡️',
       isComplete: true,
-      isPinned: false
+      isPinned: false,
     });
   }
 
   private flipCoin() {
-    if (faker.random.boolean()) {
+    if (faker.datatype.boolean()) {
       throw new HttpException(
         {
           status: HttpStatus.SERVICE_UNAVAILABLE,
-          error: 'Sorry, the chance is 50:50 that a request succeeds.'
+          error: 'Sorry, the chance is 50:50 that a request succeeds.',
         },
         503
       );
@@ -68,25 +68,25 @@ export class TodoController {
   }
 
   private takeABreak(): Promise<void> {
-    const between1To3Seconds = faker.random.number({ min: 1000, max: 3000 });
+    const between1To3Seconds = faker.datatype.number({ min: 1000, max: 3000 });
 
-    return new Promise(resolve =>
+    return new Promise((resolve) =>
       setTimeout(() => resolve(), between1To3Seconds)
     );
   }
 
   private changeFakeData() {
-    [4, 5, 6, 7].forEach(id =>
+    ['4', '5', '6', '7'].forEach((id) =>
       this.todosInMemory.update({
         id,
-        text: `⏱ ${faker.random.arrayElement([
+        text: `⏱ ${faker.helpers.arrayElement([
           'make ⛱',
           'read 📚',
           'eat 🥒',
-          'hug 👨‍👩‍👧‍👧'
+          'hug 👨‍👩‍👧‍👧',
         ])}`,
-        isComplete: faker.random.boolean(),
-        isPinned: faker.random.boolean()
+        isComplete: faker.datatype.boolean(),
+        isPinned: faker.datatype.boolean(),
       })
     );
   }
