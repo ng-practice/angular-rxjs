@@ -77,23 +77,8 @@ export class TodosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.todosInitial$ = this.todosSource$.pipe(first());
-    this.todos$ = this.todosSource$;
-
-    this.todosMostRecent$ = this.update$$.pipe(
-      withLatestFrom(this.todosSource$),
-      map(([, todos]) => todos)
-    );
-
-    this.todos$ = merge(this.todosInitial$, this.todosMostRecent$);
-
-    this.show$ = this.todosSource$.pipe(
-      skip(1),
-      map(() => true)
-    );
-    this.hide$ = this.update$$.pipe(map(() => false));
-
-    this.showReload$ = merge(this.show$, this.hide$);
+    this.initializeTodos();
+    this.showReloadOnUpdates();
   }
 
   completeOrIncompleteTodo(todoForUpdate: Todo) {
@@ -105,5 +90,25 @@ export class TodosComponent implements OnInit {
      * We just want to focus you on RxJS.
      */
     this.todosService.completeOrIncomplete(todoForUpdate).subscribe();
+  }
+
+  private initializeTodos() {
+    this.todosInitial$ = this.todosSource$.pipe(first());
+    this.todos$ = this.todosSource$;
+    this.todosMostRecent$ = this.update$$.pipe(
+      withLatestFrom(this.todosSource$),
+      map(([, todos]) => todos)
+    );
+    this.todos$ = merge(this.todosInitial$, this.todosMostRecent$);
+  }
+
+  private showReloadOnUpdates() {
+    this.show$ = this.todosSource$.pipe(
+      skip(1),
+      map(() => true)
+    );
+    this.hide$ = this.update$$.pipe(map(() => false));
+
+    this.showReload$ = merge(this.show$, this.hide$);
   }
 }
