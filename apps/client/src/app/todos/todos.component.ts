@@ -1,6 +1,14 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  first,
+  map,
+  merge,
+  of,
+  withLatestFrom,
+} from 'rxjs';
 import { TodoCheckerComponent } from './internals/components/todo-checker.component';
 import { TodoCounterComponent } from './internals/components/todo-counter.component';
 import { TodoNavigationComponent } from './internals/components/todo-navigation.component';
@@ -67,9 +75,17 @@ export class TodosComponent implements OnInit {
     this.todos$ = this.todosSource$;
   }
 
-  // TODO: Remove eslint-disable-next-line as soon as ngOnInit has been implemented.
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit(): void {
+    this.todosInitial$ = this.todosSource$.pipe(first());
+    this.todos$ = this.todosSource$;
+
+    this.todosMostRecent$ = this.update$$.pipe(
+      withLatestFrom(this.todosSource$),
+      map(([, todos]) => todos)
+    );
+
+    this.todos$ = merge(this.todosInitial$, this.todosMostRecent$);
+
     // TODO: Control display of refresh button
   }
 
