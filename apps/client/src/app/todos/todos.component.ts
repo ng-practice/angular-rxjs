@@ -7,6 +7,7 @@ import {
   map,
   merge,
   of,
+  skip,
   withLatestFrom,
 } from 'rxjs';
 import { TodoCheckerComponent } from './internals/components/todo-checker.component';
@@ -86,7 +87,13 @@ export class TodosComponent implements OnInit {
 
     this.todos$ = merge(this.todosInitial$, this.todosMostRecent$);
 
-    // TODO: Control display of refresh button
+    this.show$ = this.todosSource$.pipe(
+      skip(1),
+      map(() => true)
+    );
+    this.hide$ = this.update$$.pipe(map(() => false));
+
+    this.showReload$ = merge(this.show$, this.hide$);
   }
 
   completeOrIncompleteTodo(todoForUpdate: Todo) {
