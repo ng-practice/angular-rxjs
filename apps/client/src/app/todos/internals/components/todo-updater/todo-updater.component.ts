@@ -1,9 +1,10 @@
-import { Component, Input, output } from '@angular/core';
+import { Component, output, input } from '@angular/core';
 
 @Component({
   selector: 'app-todo-updater',
+
   template:
-    '<button *ngIf="isShown" (click)="reload.emit()" class="todo__button--primary">RELOAD</button>',
+    '<button *ngIf="isShown()" (click)="reload.emit()" class="todo__button--primary">RELOAD</button>',
   styles: [
     `
       :host {
@@ -17,6 +18,6 @@ import { Component, Input, output } from '@angular/core';
   ],
 })
 export class TodoUpdaterComponent {
-  @Input() isShown: boolean | null = false;
+  isShown = input<boolean | null>(false);
   reload = output<void>();
 }
