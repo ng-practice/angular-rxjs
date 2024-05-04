@@ -7,30 +7,28 @@ import { TodoService } from './todo.service';
   selector: 'app-todos',
   template: `
     <app-todo-navigation></app-todo-navigation>
+
     <app-todo-updater
       [isShown]="showReload$ | async"
       (reload)="update$$.next()"
     ></app-todo-updater>
+
     <main class="todo__app">
-      <ng-container *ngIf="todos$ | async as todos; else loadingIndicator">
-        <app-todo-counter
-          [count]="todos.length"
-          class="todo__component--spaced"
-        ></app-todo-counter>
-        <app-todo-checker
-          [todo]="todo"
-          (toggle)="completeOrIncompleteTodo($event)"
-          *ngFor="let todo of todos"
-        ></app-todo-checker>
-      </ng-container>
+      @if(todos$ | async; as todos) {
+      <app-todo-counter
+        [count]="todos.length"
+        class="todo__component--spaced"
+      ></app-todo-counter>
+      <app-todo-checker
+        [todo]="todo"
+        (toggle)="completeOrIncompleteTodo($event)"
+        *ngFor="let todo of todos"
+      ></app-todo-checker>
+      } @else if(!isErrorShown) {
+      <div style="padding: 8px">Get todos ready for you...</div>
+      }
 
       <app-todos-pinned [todos]="todos$ | async"></app-todos-pinned>
-
-      <ng-template #loadingIndicator>
-        <div *ngIf="!isErrorShown" style="padding: 8px">
-          Get todos ready for you...
-        </div>
-      </ng-template>
     </main>
   `,
 })

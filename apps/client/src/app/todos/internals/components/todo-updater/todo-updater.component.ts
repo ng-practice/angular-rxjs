@@ -1,10 +1,14 @@
-import { Component, output, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-todo-updater',
-
-  template:
-    '<button *ngIf="isShown()" (click)="reload.emit()" class="todo__button--primary">RELOAD</button>',
+  template: `
+    @if(isShown()) {
+    <button (click)="reload.emit()" class="todo__button--primary">
+      RELOAD
+    </button>
+    }
+  `,
   styles: [
     `
       :host {

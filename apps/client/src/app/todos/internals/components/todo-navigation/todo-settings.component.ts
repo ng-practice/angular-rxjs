@@ -1,15 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { Observable } from 'rxjs';
-import {
-  TodoSettings,
-  TodoSettingsOptions,
-} from '../../../todo-settings.service';
+import { TodoSettings } from '../../../todo-settings.service';
 
 @Component({
   selector: 'app-todo-settings',
   template: `
     <h2 mat-dialog-title>Settings</h2>
-    <mat-dialog-content *ngIf="settings$ | async as settings">
+    @if(settings$ | async; as settings) {
+    <mat-dialog-content>
       <input
         #todoTextInput
         type="number"
@@ -32,6 +29,7 @@ import {
         </label>
       </div>
     </mat-dialog-content>
+    }
 
     <mat-dialog-actions align="end">
       <button mat-dialog-close="" class="todo__button--primary">CLOSE</button>
@@ -40,11 +38,7 @@ import {
 })
 export class TodoSettingsComponent {
   private todoSettings = inject(TodoSettings);
-  settings$: Observable<Partial<TodoSettingsOptions>>;
-
-  constructor() {
-    this.settings$ = todoSettings.settings$;
-  }
+  settings$ = this.todoSettings.settings$;
 
   togglePolling(event: Event & { target: { checked: boolean } }) {
     this.todoSettings.update({ isPollingEnabled: event.target.checked });

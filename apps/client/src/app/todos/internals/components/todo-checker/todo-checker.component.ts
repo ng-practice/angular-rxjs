@@ -1,4 +1,4 @@
-import { Component, output, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Todo } from '../../../models';
 
 @Component({
@@ -17,7 +17,7 @@ import { Todo } from '../../../models';
   </div>`,
 })
 export class TodoCheckerComponent {
-  todo = input<Todo>();
+  todo = input.required<Todo>();
   toggle = output<Todo>();
   remove = output<Todo>();
 
