@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Todo } from '../../../models';
+import { Todo } from '../../models';
 
 @Pipe({
-  name: 'pinned'
+  name: 'pinned',
 })
 export class PinnedPipe implements PipeTransform {
   transform(todos: Todo[]): Todo[] {
@@ -10,6 +10,6 @@ export class PinnedPipe implements PipeTransform {
       return [];
     }
 
-    return todos.filter(todo => todo.isPinned);
+    return todos.filter((todo) => todo.isPinned);
   }
 }

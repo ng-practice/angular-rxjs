@@ -1,9 +1,12 @@
 import { Component, input } from '@angular/core';
-import { Todo } from '../../../models';
+import { MatIcon } from '@angular/material/icon';
+import { MatList, MatListItem } from '@angular/material/list';
+import { Todo } from '../../models';
 
 @Component({
   selector: 'app-todos-pinned',
-
+  standalone: true,
+  imports: [MatList, MatListItem, MatIcon],
   template: `
     @if(todos(); as todos) { @if(todos.length > 0) { >
     <h3 class="mat-h3">Pinned</h3>

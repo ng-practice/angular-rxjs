@@ -2,6 +2,7 @@ import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-todo-updater',
+  standalone: true,
   template: `
     @if(isShown()) {
     <button (click)="reload.emit()" class="todo__button--primary">

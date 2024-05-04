@@ -7,11 +7,11 @@ export interface TodoSettingsOptions {
   pollingInterval: number;
 }
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TodoSettings {
   private settings$$ = new BehaviorSubject<Partial<TodoSettingsOptions>>({
     isPollingEnabled: true,
-    pollingInterval: 5000
+    pollingInterval: 5000,
   });
 
   settings$ = this.settings$$.pipe(

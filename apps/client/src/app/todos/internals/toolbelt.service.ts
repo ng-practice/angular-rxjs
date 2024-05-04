@@ -2,25 +2,29 @@ import { Injectable, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Todo, TodoApi } from '../models';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class Toolbelt {
   private snackbar = inject(MatSnackBar);
 
   toTodoApi(todo: Todo): TodoApi {
+    const { isDone, ...rest } = todo;
+
     const mappedTodo = {
-      ...todo,
-      isComplete: todo.isDone,
+      ...rest,
+      isComplete: isDone,
     };
-    delete mappedTodo.isDone;
+
     return mappedTodo;
   }
 
   toTodo(todoApi: TodoApi): Todo {
+    const { isComplete, ...rest } = todoApi;
+
     const mappedTodo = {
-      ...todoApi,
-      isDone: todoApi.isComplete,
+      ...rest,
+      isDone: isComplete,
     };
-    delete mappedTodo.isComplete;
+
     return mappedTodo;
   }
 

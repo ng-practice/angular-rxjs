@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-todos-api-error',
+  standalone: true,
   template: `
     <h3>Sorry</h3>
     <ul>

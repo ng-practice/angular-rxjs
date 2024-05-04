@@ -1,10 +1,25 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { Observable, Subject, of } from 'rxjs';
+import { TodoCheckerComponent } from './internals/components/todo-checker.component';
+import { TodoCounterComponent } from './internals/components/todo-counter.component';
+import { TodoNavigationComponent } from './internals/components/todo-navigation.component';
+import { TodoUpdaterComponent } from './internals/components/todo-updater.component';
+import { TodosPinnedComponent } from './internals/components/todos-pinned.component';
 import { Todo } from './models';
 import { TodoService } from './todo.service';
 
 @Component({
   selector: 'app-todos',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    TodoNavigationComponent,
+    TodoUpdaterComponent,
+    TodoCounterComponent,
+    TodoCheckerComponent,
+    TodosPinnedComponent,
+  ],
   template: `
     <app-todo-navigation></app-todo-navigation>
 

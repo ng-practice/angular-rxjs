@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-todos-link-navigation',
+  standalone: true,
   template: `
     <ul class="todo__link-navigation">
       <li class="todo__link-navigation__link">

@@ -1,8 +1,12 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { TodoSettings } from '../../../todo-settings.service';
+import { MatDialogActions, MatDialogContent } from '@angular/material/dialog';
+import { TodoSettings } from '../../todo-settings.service';
 
 @Component({
   selector: 'app-todo-settings',
+  standalone: true,
+  imports: [MatDialogContent, MatDialogActions, AsyncPipe],
   template: `
     <h2 mat-dialog-title>Settings</h2>
     @if(settings$ | async; as settings) {
