@@ -1,4 +1,4 @@
-# Angular Workshop
+# Angular RxJS
 
 ## Prerequisites
 
