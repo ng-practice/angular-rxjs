@@ -15,18 +15,18 @@ You will find all resources and task for this course in the [Wiki](https://githu
 Fork [this](https://github.com/ng-practice/angular-rxjs.git) repository in GitHub or clone it with your Git client.
 
 ```bash
-git clone https://github.com/ng-practice/reactive-thinking-in-rxjs.git
+git clone https://github.com/ng-practice/angular-rxjs.git
 cd reactive-thinking-in-rxjs
-npm install
+npm install --legacy-peer-deps
 ```
 
 ## Commands
 
 | Command              | Description                                                 |
 | -------------------- | ----------------------------------------------------------- |
-| npm start            | Starts Angular Client & Nest Backend                        |
-| npm start.api        | Starts Nest Backend                                         |
-| npm start.client     | Starts Angular Client                                       |
-| npm start.rxjs       | Starts TypeScript Playground for RxJS                       |
+| npm run start        | Starts Angular Client & Nest Backend                        |
+| npm run start.api    | Starts Nest Backend                                         |
+| npm run start.client | Starts Angular Client                                       |
+| npm run start.rxjs   | Starts TypeScript Playground for RxJS                       |
 | npm run e2e          | Starts Cypress App (\* starts Angular Client automatically) |
 | npm run e2e.headless | Starts Cypress Headless                                     |
