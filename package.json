@@ -4,7 +4,11 @@
   "license": "MIT",
   "scripts": {
     "start": "nx run-many --target=serve --projects=client,api --parallel",
-    "start:rxjs": "nx run rxjs-playground:serve"
+    "start.api": "nx run api:serve",
+    "start.client": "nx run client:serve",
+    "start.rxjs": "nx run rxjs-playground:serve",
+    "e2e": "nx run client-e2e:e2e --headed",
+    "e2e.headless": "nx run client-e2e:e2e"
   },
   "private": true,
   "dependencies": {

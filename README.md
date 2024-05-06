@@ -20,24 +20,13 @@ cd reactive-thinking-in-rxjs
 npm install
 ```
 
-## Start
+## Commands
 
-### RxJS Playground
-
-```bash
-# Open in own terminal session
-npm run start:rxjs
-
-```
-
-### Client & API
-
-Starting the project will start an Angular application and a NestJS Backend.
-
-```bash
-# Open in own terminal session
-npm start
-
-# Angular Application: http://localhost:4200
-# NestJS Backend: http://localhost:3000
-```
+| Command              | Description                                                 |
+| -------------------- | ----------------------------------------------------------- |
+| npm start            | Starts Angular Client & Nest Backend                        |
+| npm start.api        | Starts Nest Backend                                         |
+| npm start.client     | Starts Angular Client                                       |
+| npm start.rxjs       | Starts TypeScript Playground for RxJS                       |
+| npm run e2e          | Starts Cypress App (\* starts Angular Client automatically) |
+| npm run e2e.headless | Starts Cypress Headless                                     |
