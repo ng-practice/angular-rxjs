@@ -7,7 +7,7 @@
     "start.api": "nx run api:serve",
     "start.client": "nx run client:serve",
     "start.rxjs": "nx run rxjs-playground:serve",
-    "e2e": "nx run client-e2e:e2e --headed",
+    "e2e": "nx open-cypress client-e2e",
     "e2e.headless": "nx run client-e2e:e2e"
   },
   "private": true,

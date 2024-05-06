@@ -1,13 +1,9 @@
-import { getGreeting } from '../support/app.po';
-
-describe('client-e2e', () => {
+describe('Todos', () => {
   beforeEach(() => cy.visit('/'));
 
-  it('should display welcome message', () => {
-    // Custom command example, see `../support/commands.ts` file
-    cy.login('my-email@something.com', 'myPassword');
-
-    // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains(/Welcome/);
+  describe('When the app is opened', () => {
+    it('displays the title of the app', () => {
+      cy.get('[data-testid="app-title"]').contains(/Todos/);
+    });
   });
 });

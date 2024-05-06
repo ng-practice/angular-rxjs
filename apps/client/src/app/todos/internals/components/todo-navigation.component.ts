@@ -11,7 +11,7 @@ import { TodoSettingsComponent } from './todo-settings.component';
   imports: [MatToolbar, MatToolbarRow, MatIcon, MatIconButton],
   template: `
     <mat-toolbar color="primary">
-      <mat-toolbar-row>
+      <mat-toolbar-row data-testid="app-title">
         <span>Todos</span>
         <span class="spacer"></span>
         <button mat-icon-button (click)="openSettings()">
