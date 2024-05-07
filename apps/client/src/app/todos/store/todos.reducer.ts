@@ -15,5 +15,15 @@ export const todosReducer = createReducer(
       ...state,
       entities: action.todos,
     };
+  }),
+  on(todosActions.toggleCompletionSucceed, (state, action) => {
+    return {
+      ...state,
+      entities: state.entities.map((todo) => {
+        if (todo.id === action.todo.id) return action.todo;
+
+        return todo;
+      }),
+    };
   })
 );

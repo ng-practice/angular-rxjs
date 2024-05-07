@@ -19,7 +19,6 @@ import { TodosPinnedComponent } from './internals/components/todos-pinned.compon
 import { Todo } from './models';
 import { todosActions } from './store/todos.actions';
 import { allTodos, todosCount } from './store/todos.selector';
-import { TodoService } from './todo.service';
 
 @Component({
   selector: 'app-todos',
@@ -64,8 +63,6 @@ import { TodoService } from './todo.service';
 export class TodosComponent implements OnInit {
   #store = inject(Store);
 
-  private todosService = inject(TodoService);
-
   update$$ = new Subject<void>();
 
   todosInitial$ = this.#store.select(allTodos).pipe(skip(1), first());
@@ -93,7 +90,7 @@ export class TodosComponent implements OnInit {
     this.#store.dispatch(todosActions.loadingStarted());
   }
 
-  completeOrIncompleteTodo(todoForUpdate: Todo) {
+  completeOrIncompleteTodo(todo: Todo) {
     /*
      * Note in order to keep the code clean for the workshop we did not
      * handle the following subscription.
@@ -101,7 +98,7 @@ export class TodosComponent implements OnInit {
      *
      * We just want to focus you on RxJS.
      */
-    this.todosService.completeOrIncomplete(todoForUpdate).subscribe();
+    this.#store.dispatch(todosActions.toggleCompletionStarted({ todo }));
   }
 
   private showReloadOnUpdates() {

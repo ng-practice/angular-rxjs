@@ -54,17 +54,14 @@ export class TodoService {
   }
 
   completeOrIncomplete(todoForUpdate: Todo): Observable<Todo> {
-    const updatedTodo = this.toggleTodoState(todoForUpdate);
     return this.http
       .put<TodoApi>(
         `${todosUrl}/${todoForUpdate.id}`,
-        this.toolbelt.toTodoApi(updatedTodo)
+        this.toolbelt.toTodoApi({
+          ...todoForUpdate,
+          isDone: todoForUpdate.isDone ? false : true,
+        })
       )
       .pipe(map((todo) => this.toolbelt.toTodo(todo)));
-  }
-
-  private toggleTodoState(todoForUpdate: Todo): Todo {
-    todoForUpdate.isDone = todoForUpdate.isDone ? false : true;
-    return todoForUpdate;
   }
 }

@@ -7,5 +7,8 @@ export const todosActions = createActionGroup({
     'Loading Started': emptyProps(),
     'Loading Succeeded': props<{ todos: Todo[] }>(),
     'Loading Failed': emptyProps(),
+    'Toggle Completion Started': props<{ todo: Todo }>(),
+    'Toggle Completion Succeed': props<{ todo: Todo }>(),
+    'Toggle Completion Failed': emptyProps(),
   },
 });
