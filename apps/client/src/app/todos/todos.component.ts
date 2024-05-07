@@ -46,6 +46,7 @@ import { TodoService } from './todo.service';
 
       @for(todo of todos; track todo.id) {
       <app-todo-checker
+        data-testid="todo-item"
         [todo]="todo"
         (toggle)="completeOrIncompleteTodo($event)"
       ></app-todo-checker>

@@ -12,7 +12,7 @@ import { TodoSettings } from '../../todo-settings.service';
   standalone: true,
   imports: [MatDialogContent, MatDialogActions, MatDialogClose, AsyncPipe],
   template: `
-    <h2 mat-dialog-title>Settings</h2>
+    <h2 mat-dialog-title data-testid="dialog-settings-title">Settings</h2>
     @if(settings$ | async; as settings) {
     <mat-dialog-content>
       <input

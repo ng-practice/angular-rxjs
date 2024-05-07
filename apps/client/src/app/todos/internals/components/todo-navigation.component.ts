@@ -14,7 +14,11 @@ import { TodoSettingsComponent } from './todo-settings.component';
       <mat-toolbar-row data-testid="app-title">
         <span>Todos</span>
         <span class="spacer"></span>
-        <button mat-icon-button (click)="openSettings()">
+        <button
+          mat-icon-button
+          (click)="openSettings()"
+          data-testid="button-dialog-opener"
+        >
           <mat-icon aria-label="Open settings dialog">settings</mat-icon>
         </button>
       </mat-toolbar-row>
