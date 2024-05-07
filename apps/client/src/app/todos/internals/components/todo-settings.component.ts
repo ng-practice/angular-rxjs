@@ -7,6 +7,7 @@ import {
 } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { updateSettings } from '../../store/settings.actions';
+import { allSettings } from '../../store/settings.selectors';
 import { TodoSettings } from '../../todo-settings.service';
 
 @Component({
@@ -56,7 +57,8 @@ export class TodoSettingsComponent {
   #store = inject(Store);
 
   private todoSettings = inject(TodoSettings);
-  settings$ = this.todoSettings.settings$;
+
+  settings$ = this.#store.select(allSettings);
 
   togglePolling(event: Event & { target: { checked: boolean } }) {
     this.#store.dispatch(
