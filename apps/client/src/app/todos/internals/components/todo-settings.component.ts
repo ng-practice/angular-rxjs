@@ -5,6 +5,8 @@ import {
   MatDialogClose,
   MatDialogContent,
 } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { updateSettings } from '../../store/settings.actions';
 import { TodoSettings } from '../../todo-settings.service';
 
 @Component({
@@ -51,14 +53,24 @@ import { TodoSettings } from '../../todo-settings.service';
   `,
 })
 export class TodoSettingsComponent {
+  #store = inject(Store);
+
   private todoSettings = inject(TodoSettings);
   settings$ = this.todoSettings.settings$;
 
   togglePolling(event: Event & { target: { checked: boolean } }) {
+    this.#store.dispatch(
+      updateSettings({ isPollingEnabled: event.target.checked })
+    );
+
     this.todoSettings.update({ isPollingEnabled: event.target.checked });
   }
 
   updateInterval(event: Event & { target: { value: string } }) {
+    this.#store.dispatch(
+      updateSettings({ pollingInterval: +event.target.value })
+    );
+
     this.todoSettings.update({ pollingInterval: +event.target.value });
   }
 }
