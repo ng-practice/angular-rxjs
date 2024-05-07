@@ -11,7 +11,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideAnimationsAsync(),
     provideRouter(appRoutes),
-
     provideStore(),
     provideStoreDevtools(),
   ],
