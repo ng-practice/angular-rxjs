@@ -9,5 +9,5 @@ import { Component, input } from '@angular/core';
   `,
 })
 export class TodoCounterComponent {
-  count = input<number>();
+  count = input<number | null>();
 }

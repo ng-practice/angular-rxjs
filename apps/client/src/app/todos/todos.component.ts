@@ -18,6 +18,7 @@ import { TodoUpdaterComponent } from './internals/components/todo-updater.compon
 import { TodosPinnedComponent } from './internals/components/todos-pinned.component';
 import { Todo } from './models';
 import { todosActions } from './store/todos.actions';
+import { allTodos, todosCount } from './store/todos.selector';
 import { TodoService } from './todo.service';
 
 @Component({
@@ -42,7 +43,7 @@ import { TodoService } from './todo.service';
     <main class="todo__app">
       @if(todos$ | async; as todos) {
       <app-todo-counter
-        [count]="todos.length"
+        [count]="count$ | async"
         class="todo__component--spaced"
       ></app-todo-counter>
 
@@ -64,25 +65,29 @@ export class TodosComponent implements OnInit {
   #store = inject(Store);
 
   private todosService = inject(TodoService);
-  todos$: Observable<Todo[]>;
-  todosSource$ = this.todosService.loadFrequently();
-  todosInitial$: Observable<Todo[]> = of([]);
-  todosMostRecent$: Observable<Todo[]> = of([]);
 
   update$$ = new Subject<void>();
+
+  todosInitial$ = this.#store.select(allTodos).pipe(skip(1), first());
+
+  todosSource$ = this.#store.select(allTodos);
+
+  todosMostRecent$ = this.update$$.pipe(
+    withLatestFrom(this.todosSource$),
+    map(([, todos]) => todos)
+  );
+
+  todos$ = merge(this.todosInitial$, this.todosMostRecent$);
+
+  count$ = this.#store.select(todosCount);
+
   show$: Observable<boolean> = of(false);
   hide$: Observable<boolean> = of(false);
   showReload$: Observable<boolean> = of(true);
 
   isErrorShown = false;
 
-  constructor() {
-    // TODO: Control update of todos in App (back pressure)
-    this.todos$ = this.todosSource$;
-  }
-
   ngOnInit(): void {
-    this.initializeTodos();
     this.showReloadOnUpdates();
 
     this.#store.dispatch(todosActions.loadingStarted());
@@ -97,16 +102,6 @@ export class TodosComponent implements OnInit {
      * We just want to focus you on RxJS.
      */
     this.todosService.completeOrIncomplete(todoForUpdate).subscribe();
-  }
-
-  private initializeTodos() {
-    this.todosInitial$ = this.todosSource$.pipe(first());
-    this.todos$ = this.todosSource$;
-    this.todosMostRecent$ = this.update$$.pipe(
-      withLatestFrom(this.todosSource$),
-      map(([, todos]) => todos)
-    );
-    this.todos$ = merge(this.todosInitial$, this.todosMostRecent$);
   }
 
   private showReloadOnUpdates() {
