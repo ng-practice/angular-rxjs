@@ -11,7 +11,19 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideAnimationsAsync(),
     provideRouter(appRoutes),
-    provideStore(),
+    provideStore(
+      {},
+      {
+        runtimeChecks: {
+          strictActionImmutability: true,
+          strictActionSerializability: true,
+          strictActionTypeUniqueness: true,
+          strictActionWithinNgZone: true,
+          strictStateImmutability: true,
+          strictStateSerializability: true,
+        },
+      }
+    ),
     provideStoreDevtools(),
   ],
 };
