@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
 import {
   Observable,
   Subject,
@@ -16,6 +17,7 @@ import { TodoNavigationComponent } from './internals/components/todo-navigation.
 import { TodoUpdaterComponent } from './internals/components/todo-updater.component';
 import { TodosPinnedComponent } from './internals/components/todos-pinned.component';
 import { Todo } from './models';
+import { todosActions } from './store/todos.actions';
 import { TodoService } from './todo.service';
 
 @Component({
@@ -59,6 +61,8 @@ import { TodoService } from './todo.service';
   `,
 })
 export class TodosComponent implements OnInit {
+  #store = inject(Store);
+
   private todosService = inject(TodoService);
   todos$: Observable<Todo[]>;
   todosSource$ = this.todosService.loadFrequently();
@@ -80,6 +84,8 @@ export class TodosComponent implements OnInit {
   ngOnInit(): void {
     this.initializeTodos();
     this.showReloadOnUpdates();
+
+    this.#store.dispatch(todosActions.loadingStarted());
   }
 
   completeOrIncompleteTodo(todoForUpdate: Todo) {
