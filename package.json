@@ -7,6 +7,7 @@
     "start.api": "nx run api:serve",
     "start.client": "nx run client:serve",
     "start.rxjs": "nx run rxjs-playground:serve",
+    "lint.client": "nx run client:lint",
     "e2e": "nx open-cypress client-e2e",
     "e2e.headless": "nx run client-e2e:e2e"
   },
@@ -50,6 +51,7 @@
     "@angular/language-service": "~17.3.0",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
+    "@ngrx/eslint-plugin": "^17.2.0",
     "@nx/cypress": "18.3.4",
     "@nx/esbuild": "18.3.4",
     "@nx/eslint": "18.3.4",

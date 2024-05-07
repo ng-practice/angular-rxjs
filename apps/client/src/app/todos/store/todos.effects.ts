@@ -9,19 +9,20 @@ import { todosActions } from './todos.actions';
 export class TodosEffects {
   #todoService = inject(TodoService);
   #snackbar = inject(MatSnackBar);
-
   #actions$ = inject(Actions);
 
-  load = createEffect(() =>
-    this.#actions$.pipe(
+  load = createEffect(() => {
+    return this.#actions$.pipe(
       ofType(todosActions.loadingStarted),
       exhaustMap(() => this.#todoService.loadFrequently()),
+      // Anti-Pattern dispatch vom Store-Service
+      // tap(() => this.#store.dispatch(todosActions.toggleCompletionFailed())),
       map((todos) => todosActions.loadingSucceeded({ todos }))
-    )
-  );
+    );
+  });
 
-  toggleCompletion = createEffect(() =>
-    this.#actions$.pipe(
+  toggleCompletion = createEffect(() => {
+    return this.#actions$.pipe(
       ofType(todosActions.toggleCompletionStarted),
       exhaustMap(({ todo }) =>
         this.#todoService.completeOrIncomplete(todo).pipe(
@@ -29,19 +30,20 @@ export class TodosEffects {
           catchError(() => of(todosActions.toggleCompletionFailed()))
         )
       )
-    )
-  );
+    );
+  });
 
   errorNotification = createEffect(
-    () =>
-      this.#actions$.pipe(
+    () => {
+      return this.#actions$.pipe(
         ofType(todosActions.toggleCompletionFailed),
         tap(() =>
           this.#snackbar.open('Das hat nicht geklappt', 'Ok', {
             duration: 3000,
           })
         )
-      ),
+      );
+    },
     { dispatch: false }
   );
 }
