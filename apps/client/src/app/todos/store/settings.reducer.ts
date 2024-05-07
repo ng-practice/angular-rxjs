@@ -1,8 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
-import { TodoSettingsOptions } from '../todo-settings.service';
+import { Settings } from './settings';
 import { updateSettings } from './settings.actions';
 
-const initialState: TodoSettingsOptions = {
+const initialState: Settings = {
   isPollingEnabled: true,
   pollingInterval: 5000,
 };

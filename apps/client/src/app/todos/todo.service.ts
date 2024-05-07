@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Observable, timer } from 'rxjs';
 import {
   delay,
@@ -11,18 +12,19 @@ import {
 } from 'rxjs/operators';
 import { Toolbelt } from './internals';
 import { Todo, TodoApi } from './models';
-import { TodoSettings } from './todo-settings.service';
+import { allSettings } from './store/settings.selectors';
 
 const todosUrl = 'http://localhost:3000/api';
 
 @Injectable({ providedIn: 'root' })
 export class TodoService {
+  #store = inject(Store);
+
   private http = inject(HttpClient);
   private toolbelt = inject(Toolbelt);
-  private settings = inject(TodoSettings);
 
   loadFrequently() {
-    return this.settings.settings$.pipe(
+    return this.#store.select(allSettings).pipe(
       switchMap(({ isPollingEnabled, pollingInterval }) =>
         isPollingEnabled
           ? timer(0, pollingInterval || 5000).pipe(

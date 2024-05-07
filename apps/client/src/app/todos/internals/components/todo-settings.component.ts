@@ -8,7 +8,6 @@ import {
 import { Store } from '@ngrx/store';
 import { updateSettings } from '../../store/settings.actions';
 import { allSettings } from '../../store/settings.selectors';
-import { TodoSettings } from '../../todo-settings.service';
 
 @Component({
   selector: 'app-todo-settings',
@@ -56,8 +55,6 @@ import { TodoSettings } from '../../todo-settings.service';
 export class TodoSettingsComponent {
   #store = inject(Store);
 
-  private todoSettings = inject(TodoSettings);
-
   settings$ = this.#store.select(allSettings);
 
   togglePolling(event: Event & { target: { checked: boolean } }) {
@@ -65,14 +62,18 @@ export class TodoSettingsComponent {
       updateSettings({ isPollingEnabled: event.target.checked })
     );
 
-    this.todoSettings.update({ isPollingEnabled: event.target.checked });
+    // violates Action Type Uniqueness
+    // this.#store.dispatch(
+    //   resetSettings({ isPollingEnabled: event.target.checked })
+    // );
+
+    // violates Action Serializability
+    // this.#store.dispatch(notSerializable({ do: () => true }));
   }
 
   updateInterval(event: Event & { target: { value: string } }) {
     this.#store.dispatch(
       updateSettings({ pollingInterval: +event.target.value })
     );
-
-    this.todoSettings.update({ pollingInterval: +event.target.value });
   }
 }
